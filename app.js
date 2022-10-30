@@ -83,7 +83,7 @@ _request.getUser = function(_this) {
     ).then(res => {
         // Сохраняем информацию о пользователе в localStorage
         localStorage.setItem('userDeatils', JSON.stringify(res.data));
-        // Отображаем, сохраненную в localStorage информацию
+        // Для проверки успешности предыдущей операции - отображаем в консоль информацию, сохраненную в localStorage
         console.log("UserInfo in the localStorage: ", JSON.parse(localStorage.getItem('userDeatils')));
     }));
 }
