@@ -67,7 +67,6 @@ _request.login = function (_this) {
     username: document.getElementById('username').value,
     password: document.getElementById('password').value
   }
-
   fetch('https://jsonplaceholder.typicode.com/posts', {
     method: 'POST',
     body: JSON.stringify(_postObj)
@@ -111,8 +110,7 @@ _request.getUser = function (_this) {
         // Отображаем, сохраненную в localStorage информацию
         console.log('Saved UserInfo (in the localStorage): ',
           // JSON.parse(getFromLS('userDeatils')) // Почему-то приводит к ошибке!???
-          JSON.parse(localStorage.getItem('userDeatils'))
-        )
+          JSON.parse(localStorage.getItem('userDeatils')))
       })
   )
   .catch(err => console.error(`Fetch problem: ${err.message}`));
@@ -122,15 +120,19 @@ _request.dashboard = function (_this) {
   // Запрашиваем из локального хранилища данные о пользователе
   let userInfo = JSON.parse(localStorage.getItem('userDeatils'));
   // Отображаем данные пользователя на Dashboard пользователя или заглушки (если нужны)
+  let id, name, nik;
   if (Object.keys(userInfo).length != 0) {
-    document.getElementById('userid').innerText = userInfo.id;
-    document.getElementById('username').innerText = userInfo.name;
-    document.getElementById('usernik').innerText = userInfo.username;
+    id = userInfo.id;
+    name = userInfo.name;
+    nik = userInfo.username;
   } else {
-    document.getElementById('userid').innerText = "[Used ID]";
-    document.getElementById('username').innerText = "[User name]";
-    document.getElementById('usernik').innerText = "[User NIK]";
+    id = "[Used ID]";
+    name = "[User name]";
+    nik = "[User NIK]";
   }
+  document.getElementById('userid').innerText = id;
+  document.getElementById('username').innerText = name;
+  document.getElementById('usernik').innerText = nik;
 }
 
 function saveToLS(_key, _value) {
