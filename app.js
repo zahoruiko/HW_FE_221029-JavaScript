@@ -83,21 +83,6 @@ _request.login = function (_this) {
   })
 }
 
-_request.dashboard = function (_this) {
-  // Запрашиваем из локального хранилища данные о пользователе
-  let userInfo = JSON.parse(localStorage.getItem('userDeatils'));
-  // Отображаем данные пользователя на Dashboard пользователя или заглушки (если нужны)
-  if (Object.keys(userInfo).length != 0) {
-    document.getElementById('userid').innerText = userInfo.id;
-    document.getElementById('username').innerText = userInfo.name;
-    document.getElementById('usernik').innerText = userInfo.username;
-  } else {
-    document.getElementById('userid').innerText = "[Used ID]";
-    document.getElementById('username').innerText = "[User name]";
-    document.getElementById('usernik').innerText = "[User NIK]";
-  }
-}
-
 _request.getUser = function (_this) {
   let _headers = {
     // "AUTH": _AUTH
@@ -121,7 +106,7 @@ _request.getUser = function (_this) {
       }))
       .then(res => {
         // Сохраняем информацию о пользователе в localStorage
-        saveToLS('userDeatils', JSON.stringify(res.data));
+        saveToLS ('userDeatils', JSON.stringify(res.data));
         // localStorage.setItem('userDeatils', JSON.stringify(res.data));
         // Отображаем, сохраненную в localStorage информацию
         console.log('Saved UserInfo (in the localStorage): ',
@@ -131,6 +116,21 @@ _request.getUser = function (_this) {
       })
   )
   .catch(err => console.error(`Fetch problem: ${err.message}`));
+}
+
+_request.dashboard = function (_this) {
+  // Запрашиваем из локального хранилища данные о пользователе
+  let userInfo = JSON.parse(localStorage.getItem('userDeatils'));
+  // Отображаем данные пользователя на Dashboard пользователя или заглушки (если нужны)
+  if (Object.keys(userInfo).length != 0) {
+    document.getElementById('userid').innerText = userInfo.id;
+    document.getElementById('username').innerText = userInfo.name;
+    document.getElementById('usernik').innerText = userInfo.username;
+  } else {
+    document.getElementById('userid').innerText = "[Used ID]";
+    document.getElementById('username').innerText = "[User name]";
+    document.getElementById('usernik').innerText = "[User NIK]";
+  }
 }
 
 function saveToLS(_key, _value) {
